@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ruoyu Yang</title>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 600px;
+            margin: 100px auto; /* 增加了顶部的留白，更像 Joanne 的风格 */
+            padding: 0 20px;
+        }
+        h1 {
+            font-size: 1.6rem;
+            font-weight: 600;
+            margin-bottom: 2.5rem;
+            color: #000;
+        }
+        .kaiti {
+            font-family: "Kaiti", "STKaiti", serif;
+            font-weight: normal;
+        }
+        p {
+            margin-bottom: 1.8rem;
+            font-size: 1rem;
+        }
+        a {
+            color: #0070f3;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+
+        /* =========================================
+           2. 社交媒体链接区域的 CSS - 核心动画部分 
+           ========================================= */
+        .social-links {
+            margin-top: 4rem;
+            font-size: 1.6rem; /* 增大图标字号 */
+        }
+
+        /* 这是图标的初始状态 (默认状态) */
+        .social-links a.social-icon {
+            display: inline-block; /* 必须设置为 inline-block 才能产生位移动画 */
+            margin-right: 25px;
+            color: #aaa; /* 默认颜色是浅灰色 */
+            text-decoration: none; /* 去掉默认下划线 */
+
+            /* --- ⭐这就是动画的核心⭐ --- */
+            /* 告诉浏览器：所有属性的改变(all)，都要在 0.3秒内(0.3s) 平滑地完成(ease-in-out) */
+            transition: all 0.3s ease-in-out;
+        }
+
+        /* 这是图标的鼠标悬停状态 (Hover 状态) */
+        .social-links a.social-icon:hover {
+            color: #333; /* 1. 悬停时，颜色变深 */
+            
+            /* 2. 悬停时，向上移动 3 像素 (TranslateY) */
+            /* 如果想放大，可以用 transform: scale(1.1); */
+            transform: translateY(-3px); 
+        }
+
+    </style>
+</head>
+<body>
+
+    <h1>Hi, I’m Ruoyu Yang (<span class="kaiti">杨若雨</span>).</h1>
+
+    <p>
+        I'm a PhD student at <strong>Wuhan University</strong>, majoring in <strong>Remote Sensing</strong>.
+    </p>
+
+    <p>
+        My research focuses on <strong>multi-modal high-resolution remote sensing foundation models</strong>, 
+        advised by <a href="https://rsidea.whu.edu.cn/" target="_blank">Prof. Yanfei Zhong</a> at RSIDEA.
+    </p>
+
+    <p>
+        I love a challenging life, interesting stories, and all beautiful things.
+    </p>
+
+    <div class="social-links">
+        <a href="https://github.com/WanderRainy" target="_blank" class="social-icon" title="GitHub">
+            <i class="fab fa-github"></i>
+        </a>
+        
+        <a href="https://weibo.com/u/6724402000" target="_blank" class="social-icon" title="微博">
+            <i class="fab fa-weibo"></i>
+        </a>
+    </div>
+
+</body>
+</html>
