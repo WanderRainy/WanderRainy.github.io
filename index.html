@@ -10,10 +10,9 @@
     
     <style>
         :root {
-            --bg-overlay: rgba(245, 249, 255, 0.4); /* 增加背景层遮罩，提升文字可读性 */
             --fg: #111111;
             --muted: rgba(17, 17, 17, 0.62);
-            --panel-glass: rgba(255, 255, 255, 0.75);
+            --panel-glass: rgba(255, 255, 255, 0.78);
             --max: 980px;
             --pad: 32px;
             --serif: "Newsreader", "Kaiti", "STKaiti", serif;
@@ -29,10 +28,10 @@
             justify-content: center;
             align-items: center;
             padding: 40px 20px;
-            overflow: hidden; /* 防止背景滚动 */
+            overflow: hidden;
         }
 
-        /* 1. 全屏背景设置 */
+        /* 全屏背景 */
         .full-bg {
             position: fixed;
             top: 0;
@@ -43,18 +42,18 @@
             background-image: url("imgs/best_scenery_2025.jpg");
             background-size: cover;
             background-position: center;
-            filter: blur(8px) brightness(0.9); /* 设置背景模糊和亮度 */
-            transform: scale(1.1); /* 稍微放大以消除边缘模糊产生的白边 */
+            filter: blur(8px) brightness(0.85);
+            transform: scale(1.1);
         }
 
         .card {
             width: min(var(--max), 100%);
             display: grid;
-            grid-template-columns: 0.9fr 1.1fr;
+            grid-template-columns: 0.95fr 1.05fr;
             border-radius: 24px;
             overflow: hidden;
-            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.15);
-            background: rgba(255, 255, 255, 0.2); /* 容器基础透明度 */
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.2);
+            background: rgba(255, 255, 255, 0.1);
             z-index: 1;
         }
 
@@ -62,8 +61,7 @@
             margin: 0;
             position: relative;
             background: #d9d9d9;
-            display: flex;
-            flex-direction: column;
+            overflow: hidden;
         }
         .media img {
             width: 100%;
@@ -72,57 +70,59 @@
             display: block;
         }
 
-        /* 2. 照片署名样式 */
+        /* 照片拍摄信息署名 */
         .photo-credit {
             position: absolute;
-            bottom: 15px;
-            right: 15px;
-            color: rgba(255, 255, 255, 0.8);
-            font-size: 11px;
+            bottom: 12px;
+            left: 15px; /* 改为左侧对齐，符合拍摄信息习惯 */
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 10px;
             font-family: var(--sans);
-            letter-spacing: 0.05em;
-            text-shadow: 0 1px 4px rgba(0,0,0,0.4);
-            pointer-events: none; /* 防止遮挡鼠标点击 */
+            letter-spacing: 0.03em;
+            text-shadow: 0 1px 3px rgba(0,0,0,0.5);
         }
 
         .content {
-            padding: 60px var(--pad) var(--pad) var(--pad);
+            padding: 50px var(--pad) var(--pad) var(--pad);
             display: flex;
             flex-direction: column;
-            gap: 24px;
+            gap: 20px;
             background: var(--panel-glass);
-            backdrop-filter: blur(20px) saturate(140%);
-            -webkit-backdrop-filter: blur(20px) saturate(140%);
+            backdrop-filter: blur(25px) saturate(150%);
+            -webkit-backdrop-filter: blur(25px) saturate(150%);
         }
 
+        /* 优化后的标题字体大小 */
         h1 {
             margin: 0;
             font-family: var(--serif);
             font-weight: 600;
-            font-size: clamp(30px, 4vw, 42px);
-            letter-spacing: -0.02em;
+            font-size: clamp(24px, 2.8vw, 32px); /* 调小了字体大小，显得更精致 */
+            letter-spacing: -0.01em;
+            line-height: 1.2;
         }
 
         .prose p {
-            margin: 0 0 16px 0;
-            font-size: 1.05rem;
-            line-height: 1.65;
-            color: #222;
+            margin: 0 0 18px 0;
+            font-size: 1rem;
+            line-height: 1.6;
+            color: #333;
         }
 
         .kaiti {
             font-family: "Kaiti", "STKaiti", serif;
             font-weight: normal;
-            font-size: 0.9em;
+            font-size: 0.85em;
+            opacity: 0.9;
         }
 
         .links-block { margin-top: auto; }
         .links-title {
             font-size: 11px;
             text-transform: uppercase;
-            letter-spacing: 0.12em;
+            letter-spacing: 0.1em;
             color: var(--muted);
-            margin-bottom: 18px;
+            margin-bottom: 15px;
         }
         .links {
             display: flex;
@@ -132,18 +132,28 @@
         .social-link {
             text-decoration: none;
             color: var(--fg);
-            font-size: 1.6rem;
-            transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            font-size: 1.5rem;
+            transition: all 0.2s ease;
         }
         .social-link:hover {
-            transform: translateY(-4px);
+            transform: translateY(-3px);
             color: #5b7f9a;
+        }
+
+        a {
+            color: #5b7f9a;
+            text-decoration: none;
+            border-bottom: 1px solid rgba(91, 127, 154, 0.2);
+            transition: all 0.2s;
+        }
+        a:hover {
+            border-bottom-color: #5b7f9a;
         }
 
         @media (max-width: 840px) {
             body { padding: 20px; overflow: auto; }
             .card { grid-template-columns: 1fr; }
-            .media { aspect-ratio: 4 / 3; }
+            .media { height: 450px; }
             .content { padding: 32px; }
         }
     </style>
@@ -154,8 +164,8 @@
 
     <main class="card">
         <figure class="media">
-            <img src="imgs/yangruoyu2025.jpg" alt="Ruoyu Yang" loading="eager" />
-            <div class="photo-credit">photo by DuWang.</div>
+            <img src="imgs/yangruoyu2025.jpg" alt="Ruoyu Yang" />
+            <div class="photo-credit">Shot by DuWang at Xinghu 703, Wuhan University.</div>
         </figure>
 
         <div class="content">
@@ -167,20 +177,20 @@
                 </p>
                 <p>
                     My research focuses on <strong>multi-modal high-resolution remote sensing foundation models</strong>, 
-                    advised by Prof. Yanfei Zhong at RSIDEA.
+                    advised by <a href="https://rsidea.whu.edu.cn/" target="_blank">Prof. Yanfei Zhong</a> at RSIDEA.
                 </p>
                 <p>
-                    I love a challenging life, interesting stories, and all beautiful things.
+                    I crave a life of challenge, cherish stories full of wonder, and adore all that is beautiful in the world.
                 </p>
             </div>
 
             <section class="links-block">
                 <p class="links-title">Connect</p>
                 <nav class="links">
-                    <a class="social-link" href="https://github.com/WanderRainy" target="_blank" aria-label="GitHub">
+                    <a class="social-link" href="https://github.com/WanderRainy" target="_blank">
                         <i class="fab fa-github"></i>
                     </a>
-                    <a class="social-link" href="https://weibo.com/u/6724402000" target="_blank" aria-label="Weibo">
+                    <a class="social-link" href="https://weibo.com/u/6724402000" target="_blank">
                         <i class="fab fa-weibo"></i>
                     </a>
                 </nav>
