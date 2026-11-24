@@ -1,220 +1,166 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="en">
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Ruoyu Yang</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Ruoyu Yang's research on road extraction and multimodal remote sensing foundation models at Wuhan University.">
+    <title>Ruoyu Yang | Remote Sensing Research</title>
     <link rel="icon" type="image/png" href="imgs/favicon.png">
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,600&display=swap" rel="stylesheet" />
-    
     <style>
         :root {
-            --fg: #111111;
-            --muted: rgba(17, 17, 17, 0.62);
-            --panel-glass: rgba(255, 255, 255, 0.78);
-            --max: 980px;
-            --pad: 32px;
-            --serif: "Newsreader", "Kaiti", "STKaiti", serif;
-            --sans: ui-sans-serif, system-ui, -apple-system, sans-serif;
+            color-scheme: light;
+            --ink: #192e3c;
+            --muted: #495e6b;
+            --accent: #1d5c70;
+            --line: #dce6eb;
+            --surface: #f4f8fa;
+            font: 100%/1.65 system-ui, sans-serif;
         }
 
         * { box-sizing: border-box; }
-        html, body { height: 100%; margin: 0; }
-
-        body {
-            margin: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 40px 20px;
-            overflow: hidden;
-        }
-
-        /* 全屏背景 */
-        .full-bg {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-            background-image: url("imgs/best_scenery_2025.jpg");
-            background-size: cover;
-            background-position: center;
-            filter: blur(8px) brightness(0.85);
-            transform: scale(1.1);
-        }
-
-        .card {
-            width: min(var(--max), 100%);
+        body { margin: 0; color: var(--ink); }
+        a { color: var(--accent); text-underline-offset: .2em; }
+        a:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
+        h1, h2, h3, h4 { line-height: 1.2; }
+        h1, h2 { font-family: Georgia, "Songti SC", SimSun, serif; }
+        h1 { margin: .25rem 0 1rem; font-size: clamp(2.25rem, 6vw, 4rem); }
+        h2 { margin: 0 0 .75rem; font-size: clamp(1.85rem, 4vw, 2.6rem); }
+        h3 { margin: 0 0 .5rem; font-size: clamp(1.35rem, 3vw, 1.7rem); }
+        h4 { margin: .45rem 0 .65rem; font-size: 1.13rem; }
+        p { margin: 0 0 .85rem; }
+        .wrap { width: min(70rem, calc(100% - 2.5rem)); margin-inline: auto; }
+        .site-header { border-bottom: 1px solid var(--line); }
+        .site-nav, .links { display: flex; flex-wrap: wrap; gap: .5rem 1.3rem; }
+        .site-nav { justify-content: space-between; align-items: center; min-height: 4rem; }
+        .site-nav a { font-weight: 650; }
+        .intro { background: var(--surface); border-bottom: 1px solid var(--line); }
+        .profile {
             display: grid;
-            grid-template-columns: 0.95fr 1.05fr;
-            border-radius: 24px;
-            overflow: hidden;
-            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.2);
-            background: rgba(255, 255, 255, 0.1);
-            z-index: 1;
-        }
-
-        .media {
-            margin: 0;
-            position: relative;
-            background: #d9d9d9;
-            overflow: hidden;
-        }
-        .media img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            display: block;
-        }
-
-        /* 照片拍摄信息署名 */
-        .photo-credit {
-            position: absolute;
-            bottom: 12px;
-            left: 15px; /* 改为左侧对齐，符合拍摄信息习惯 */
-            color: rgba(255, 255, 255, 0.7);
-            font-size: 10px;
-            font-family: var(--sans);
-            letter-spacing: 0.03em;
-            text-shadow: 0 1px 3px rgba(0,0,0,0.5);
-        }
-
-        .content {
-            padding: 50px var(--pad) var(--pad) var(--pad);
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-            background: var(--panel-glass);
-            backdrop-filter: blur(25px) saturate(150%);
-            -webkit-backdrop-filter: blur(25px) saturate(150%);
-        }
-
-        /* 优化后的标题字体大小 */
-        h1 {
-            margin: 0;
-            font-family: var(--serif);
-            font-weight: 600;
-            font-size: clamp(24px, 2.8vw, 32px); /* 调小了字体大小，显得更精致 */
-            letter-spacing: -0.01em;
-            line-height: 1.2;
-        }
-
-        .prose p {
-            margin: 0 0 18px 0;
-            font-size: 1rem;
-            line-height: 1.6;
-            color: #333;
-        }
-
-        .kaiti {
-            font-family: "Kaiti", "STKaiti", serif;
-            font-weight: normal;
-            font-size: 0.85em;
-            opacity: 0.9;
-        }
-
-        .links-block { margin-top: auto; }
-        .links-title {
-            font-size: 11px;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            color: var(--muted);
-            margin-bottom: 15px;
-        }
-        .links {
-            display: flex;
-            gap: 20px;
+            grid-template-columns: minmax(0, 1fr) minmax(0, 15rem);
             align-items: center;
+            gap: clamp(1.5rem, 5vw, 4.5rem);
+            padding-block: clamp(2rem, 6vw, 4rem);
         }
-        .social-link {
-            text-decoration: none;
-            color: var(--fg);
-            font-size: 1.5rem;
-            transition: all 0.2s ease;
+        .profile figure { margin: 0; }
+        .profile img { display: block; width: 100%; aspect-ratio: 5 / 4; object-fit: cover; border-radius: .65rem; }
+        figcaption { margin-top: .45rem; font-size: .8125rem; color: var(--muted); }
+        .affiliation, .metadata { margin: 0; font-size: .875rem; font-weight: 650; color: var(--accent); }
+        .name-cn { font-size: .55em; white-space: nowrap; }
+        .research { padding-block: clamp(2rem, 6vw, 4rem); }
+        .research p { color: var(--muted); }
+        .research .metadata { color: var(--accent); }
+        .area-nav { display: flex; flex-wrap: wrap; gap: .6rem; margin-block: 1.3rem 2rem; }
+        .area-nav a {
+            max-width: 100%;
+            padding: .35rem .8rem;
+            border: 1px solid var(--line);
+            border-radius: .4rem;
+            background: var(--surface);
+            font-weight: 600;
         }
-        .social-link:hover {
-            transform: translateY(-3px);
-            color: #5b7f9a;
-        }
+        .area { border-top: 1px solid var(--line); padding-block: 1.75rem; scroll-margin-top: 1rem; }
+        .area:last-child { padding-bottom: 0; }
+        .area-intro { max-width: 75ch; }
+        .projects { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1rem; margin-top: 1.25rem; }
+        .project { display: flex; flex-direction: column; align-items: start; padding: 1.2rem; border: 1px solid var(--line); border-radius: .6rem; }
+        .project .links { margin-top: auto; font-size: .9rem; font-weight: 650; }
+        footer { padding-block: 1.25rem; border-top: 1px solid var(--line); color: var(--muted); font-size: .875rem; }
 
-        a {
-            color: #5b7f9a;
-            text-decoration: none;
-            border-bottom: 1px solid rgba(91, 127, 154, 0.2);
-            transition: all 0.2s;
+        @media (max-width: 54rem) {
+            .projects { grid-template-columns: repeat(2, minmax(0, 1fr)); }
         }
-        a:hover {
-            border-bottom-color: #5b7f9a;
-        }
-
-        @media (max-width: 840px) {
-            body { padding: 20px; overflow: auto; }
-            .card { grid-template-columns: 1fr; }
-            .media { height: 450px; }
-            .content { padding: 32px; }
+        @media (max-width: 38rem) {
+            .profile, .projects { grid-template-columns: minmax(0, 1fr); }
+            .profile figure { max-width: 15rem; }
         }
     </style>
 </head>
 <body>
+    <header class="site-header">
+        <nav class="site-nav wrap" aria-label="Main navigation">
+            <a href="#about">Ruoyu Yang</a>
+            <a href="#research">Research</a>
+        </nav>
+    </header>
 
-    <div class="full-bg"></div>
-
-    <main class="card">
-        <figure class="media">
-            <img src="imgs/yangruoyu2025.jpg" alt="Ruoyu Yang" />
-            <div class="photo-credit">Shot by DuWang at Xinghu 703, Wuhan University.</div>
-        </figure>
-
-        <div class="content">
-            <h1>Hi, I’m Ruoyu Yang (<span class="kaiti">杨若雨</span>).</h1>
-            
-            <div class="prose">
-                <p>
-                    I'm a PhD student at <strong>Wuhan University</strong>, majoring in <strong>Remote Sensing</strong>.
-                </p>
-                <p>
-                    My research focuses on <strong>multi-modal high-resolution remote sensing foundation models</strong>, 
-                    advised by <a href="https://rsidea.whu.edu.cn/" target="_blank">Prof. Yanfei Zhong</a> at RSIDEA.
-                </p>
-                <p>
-                    I crave a life of challenge, cherish stories full of wonder, and adore all that is beautiful in the world.
-                </p>
+    <main>
+        <section class="intro" id="about" aria-labelledby="name">
+            <div class="profile wrap">
+                <div>
+                    <p class="affiliation">Wuhan University · RSIDEA</p>
+                    <h1 id="name">Ruoyu Yang <span class="name-cn" lang="zh-CN">杨若雨</span></h1>
+                    <p>I’m a PhD student in remote sensing at Wuhan University, advised by <a href="https://rsidea.whu.edu.cn/">Prof. Yanfei Zhong</a>. I study road network extraction and multimodal learning for very-high-resolution remote sensing imagery.</p>
+                    <p>I crave a life of challenge, cherish stories full of wonder, and adore all that is beautiful in the world.</p>
+                    <nav class="links" aria-label="Social profiles">
+                        <a href="https://github.com/WanderRainy">GitHub</a>
+                        <a href="https://weibo.com/u/6724402000">Weibo</a>
+                        <a href="https://www.instagram.com/met.by.rainy/">Instagram</a>
+                    </nav>
+                </div>
+                <figure>
+                    <img src="imgs/yangruoyu2025.jpg" alt="Portrait of Ruoyu Yang">
+                    <figcaption>Photo by DuWang at Xinghu 703, Wuhan University.</figcaption>
+                </figure>
             </div>
+        </section>
 
-            <section class="links-block">
-              <p class="links-title">Connect</p>
-              <nav class="links">
-                <a class="social-link" href="https://github.com/WanderRainy" target="_blank" rel="noopener noreferrer">
-                  <i class="fab fa-github"></i>
-                </a>
-                <a class="social-link" href="https://weibo.com/u/6724402000" target="_blank" rel="noopener noreferrer">
-                  <i class="fab fa-weibo"></i>
-                </a>
-                <!-- 这里换成你的本地图片 -->
-                <a class="social-link" href="https://www.instagram.com/met.by.rainy/" target="_blank" rel="noopener noreferrer">
-                  <img src="imgs/icon_instagram.jpg" alt="Instagram" class="social-icon-img">
-                </a>
-              </nav>
+        <section class="research wrap" id="research" aria-labelledby="research-title">
+            <h2 id="research-title">Research Areas</h2>
+            <nav class="area-nav" aria-label="Research areas">
+                <a href="#road-extraction">Road Extraction</a>
+                <a href="#multimodal-foundation-models">Multimodal Remote Sensing Foundation Models</a>
+            </nav>
+
+            <section class="area" id="road-extraction" aria-labelledby="road-title">
+                <h3 id="road-title">Road Extraction <span lang="zh-CN">· 道路提取</span></h3>
+                <p class="area-intro">How can we recover connected road networks from high-resolution satellite imagery when trees and other objects hide parts of the road? My work explores occlusion-aware segmentation and direct extraction of vector road graphs.</p>
+                <div class="projects">
+                    <article class="project">
+                        <p class="metadata">IEEE TGRS · 2024</p>
+                        <h4>IS-RoadDet</h4>
+                        <p>Directly predicts intersections and road segments with a Transformer to construct vector road graphs from high-resolution imagery.</p>
+                        <div class="links"><a href="https://doi.org/10.1109/TGRS.2024.3483113" aria-label="IS-RoadDet paper">Paper</a></div>
+                    </article>
+                    <article class="project">
+                        <p class="metadata">IEEE TGRS · 2024</p>
+                        <h4>Occlusion-Aware Road Extraction Network</h4>
+                        <p>Improves road extraction in high-resolution imagery where parts of the road are obscured.</p>
+                        <div class="links"><a href="https://doi.org/10.1109/TGRS.2024.3387945" aria-label="Occlusion-Aware Road Extraction Network paper">Paper</a></div>
+                    </article>
+                    <article class="project">
+                        <h4>OurNet</h4>
+                        <p>Studies occluded urban roads with a global high-resolution benchmark and guided generation to recover missing road information.</p>
+                    </article>
+                </div>
             </section>
-            
-            <!-- 必须保留的样式，让图片和其他图标大小一致 -->
-            <style>
-            
-            /* 新增：本地图片样式 */
-            .social-icon-img {
-              width: 24px;     /* 和图标一样大 */
-              height: 24px;
-              object-fit: cover;
-              vertical-align: middle;
-            }
-            </style>
-        </div>
+
+            <section class="area" id="multimodal-foundation-models" aria-labelledby="multimodal-title">
+                <h3 id="multimodal-title">Multimodal Remote Sensing Foundation Models <span lang="zh-CN">· 多模态遥感基础模型</span></h3>
+                <p class="area-intro">How can models combine the fine spatial detail of optical imagery with the all-weather sensing capabilities of synthetic aperture radar (SAR)? My work focuses on learning across sensors and enabling fine-grained interpretation of very-high-resolution scenes.</p>
+                <div class="projects">
+                    <article class="project">
+                        <p class="metadata">AAAI · 2026</p>
+                        <h4>MaRS</h4>
+                        <p>A very-high-resolution foundation model that learns shared optical and SAR representations across spatial scales. It is pretrained on MaRS-16M, a dataset of more than 16 million paired samples.</p>
+                        <div class="links">
+                            <a href="https://rsidea.whu.edu.cn/mars.htm">Project</a>
+                            <a href="https://rsidea.whu.edu.cn/mars.pdf" aria-label="MaRS paper">Paper</a>
+                            <a href="https://github.com/WanderRainy/MaRS" aria-label="MaRS code">Code</a>
+                        </div>
+                    </article>
+                    <article class="project">
+                        <h4>All-Weather Damage Understanding</h4>
+                        <p>Explores how a multimodal foundation model can support fine-grained damage interpretation when clouds limit optical observations.</p>
+                    </article>
+                    <article class="project">
+                        <h4>Vision–Language Active Perception</h4>
+                        <p>Uses a global overview and adaptive local crops to support visual reasoning and localization in very-high-resolution remote sensing imagery.</p>
+                    </article>
+                </div>
+            </section>
+        </section>
     </main>
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <footer><div class="wrap">Ruoyu Yang · Wuhan University</div></footer>
 </body>
 </html>
