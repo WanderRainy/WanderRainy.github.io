@@ -37,7 +37,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            padding: 40px 20px;
+            padding: 52px 20px;
             overflow: hidden;
         }
 
@@ -160,8 +160,41 @@
             border-bottom-color: #5b7f9a;
         }
 
+
+        .hero .scroll-hint {
+            position: absolute;
+            bottom: .75rem;
+            left: 50%;
+            z-index: 2;
+            width: max-content;
+            padding: .35rem .8rem;
+            border: 1px solid rgba(255, 255, 255, .55);
+            border-radius: 999px;
+            background: rgba(17, 30, 38, .8);
+            color: #fff;
+            font: 600 .875rem/1.4 var(--sans);
+            visibility: hidden;
+            transform: translateX(-50%);
+            animation: reveal-scroll-hint .8s ease-out 5s both;
+        }
+
+        .hero .scroll-hint:focus-visible {
+            outline: 2px solid #fff;
+            outline-offset: 3px;
+        }
+
+        @keyframes reveal-scroll-hint {
+            0% { visibility: hidden; opacity: 0; transform: translate(-50%, -8px); }
+            60% { visibility: visible; opacity: 1; transform: translate(-50%, 2px); }
+            100% { visibility: visible; opacity: 1; transform: translateX(-50%); }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .hero .scroll-hint { animation-duration: .01ms; }
+        }
+
         @media (max-width: 840px) {
-            .hero { padding: 20px; }
+            .hero { padding: 20px 20px 52px; }
             .card { grid-template-columns: 1fr; }
             .media { height: 450px; }
             .content { padding: 32px; }
@@ -261,6 +294,7 @@
                     </style>
                 </div>
             </div>
+            <a class="scroll-hint" href="#research">Scroll for research</a>
         </section>
 
         <section class="research wrap" id="research" aria-labelledby="research-title">
@@ -271,7 +305,7 @@
             </nav>
 
             <section class="area" id="road-extraction" aria-labelledby="road-title">
-                <h3 id="road-title">Road Extraction <span lang="zh-CN">· 道路提取</span></h3>
+                <h3 id="road-title">Road Extraction</h3>
                 <p class="area-intro">How can we recover connected road networks from high-resolution satellite imagery when trees and other objects hide parts of the road? My work explores occlusion-aware segmentation and direct extraction of vector road graphs.</p>
                 <div class="projects">
                     <article class="project">
@@ -294,7 +328,7 @@
             </section>
 
             <section class="area" id="multimodal-foundation-models" aria-labelledby="multimodal-title">
-                <h3 id="multimodal-title">Multimodal Remote Sensing Foundation Models <span lang="zh-CN">· 多模态遥感基础模型</span></h3>
+                <h3 id="multimodal-title">Multimodal Remote Sensing Foundation Models</h3>
                 <p class="area-intro">How can models combine the fine spatial detail of optical imagery with the all-weather sensing capabilities of synthetic aperture radar (SAR)? My work focuses on learning across sensors and enabling fine-grained interpretation of very-high-resolution scenes.</p>
                 <div class="projects">
                     <article class="project">
